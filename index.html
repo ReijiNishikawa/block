@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8x8 Block Puzzle</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <h1>8x8 Block Puzzle</h1>
+      <div class="menu" id="modeMenu">
+        <button id="menuBtn" class="menu-btn" aria-haspopup="true" aria-expanded="false" aria-controls="menuPanel" title="メニュー">☰</button>
+        <div id="menuPanel" class="menu-panel" role="menu" aria-label="メニュー">
+          <div class="menu-section">
+            <div class="menu-title">モード</div>
+            <label class="menu-item"><input type="radio" name="mode" value="easy" checked> イージー</label>
+            <label class="menu-item"><input type="radio" name="mode" value="hard"> ハード</label>
+            <label class="menu-item"><input type="radio" name="mode" value="practice"> プラクティス</label>
+          </div>
+        </div>
+      </div>
+      <div class="scoreboard">
+        <div>Score: <span id="score">0</span></div>
+        <div id="status"></div>
+      </div>
+    </header>
+
+    <main class="main">
+      <section class="board-section">
+        <div id="board" class="board" aria-label="8x8 board"></div>
+        <div class="controls">
+          <button id="resetBtn">リセット</button>
+          <button id="hintBtn" class="easy-only">ヒント</button>
+          <label class="easy-only"><input type="checkbox" id="autoHint"> 自動ヒント</label>
+          <button id="undoBtn" class="practice-only">やり直す</button>
+          <label class="practice-only"><input type="checkbox" id="editBoard"> 盤面編集</label>
+          <button id="pickBlocksBtn" class="practice-only">ブロック選択</button>
+          <button id="editPieceBtn" class="practice-only">ブロック編集</button>
+          <button id="presetBtn" class="practice-only">プリセット編集</button>
+          <button id="newSetBtn" class="practice-only">新しいセット</button>
+        </div>
+      </section>
+
+      <section class="tray-section">
+        <h3>次のブロック</h3>
+        <div id="tray" class="tray"></div>
+      </section>
+    </main>
+
+    <dialog id="pickerDialog">
+      <form method="dialog">
+        <h3>ブロック選択（3つ選んでください）</h3>
+        <div id="picker" class="picker"></div>
+        <div class="picker-actions">
+          <button id="pickerClear" type="button">クリア</button>
+          <button id="pickerDone">決定</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="editorDialog">
+      <form method="dialog">
+        <h3>ブロック編集（5x5）</h3>
+        <div class="editor-controls">
+          <label>スロット: 
+            <label><input type="radio" name="slot" value="0">1</label>
+            <label><input type="radio" name="slot" value="1">2</label>
+            <label><input type="radio" name="slot" value="2">3</label>
+          </label>
+        </div>
+        <div id="editorGrid" class="editor-grid" aria-label="piece editor grid"></div>
+        <div class="picker-actions">
+          <button id="editorLoad" type="button">読み込み</button>
+          <button id="editorClear" type="button">クリア</button>
+          <button id="editorDone">決定</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="presetDialog">
+      <form method="dialog">
+        <h3>プリセット編集</h3>
+        <p style="margin:0 0 6px 0;">現在のプリセット（クリックで選択・削除対象）</p>
+        <div id="presetList" class="picker"></div>
+        <h4 style="margin:10px 0 6px 0;">新規プリセット（5x5 で作成）</h4>
+        <div id="presetEditor" class="editor-grid"></div>
+        <div class="picker-actions">
+          <button id="presetAdd" type="button">追加</button>
+          <button id="presetRemove" type="button">削除</button>
+          <button id="presetClose">閉じる</button>
+        </div>
+        <h4 style="margin:10px 0 6px 0;">エクスポート / インポート</h4>
+        <div class="preset-io">
+          <textarea id="presetJson" rows="4" placeholder="ここにJSONが表示/貼り付けされます"></textarea>
+          <div class="picker-actions">
+            <button id="presetExport" type="button">エクスポート</button>
+            <button id="presetCopy" type="button">コピー</button>
+            <button id="presetImport" type="button">インポート</button>
+          </div>
+        </div>
+      </form>
+    </dialog>
+  </div>
+
+  <script src="script.js"></script>
+  </body>
+  </html>
